@@ -1,6 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Banner.css";
-function Banner() {
+import axios from "./axios";
+import requests from "./requests";
+
+function Banner() { 
+  const [movie, setMovie] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const requests = await axios.get(requests.fetchNetflixOriginals);
+      setMovie(
+        requests.data.results[
+          Math.floor(Math.random() * requests.data.result.length -1)
+        ]
+      );
+      return requests;
+      
+    }
+
+    fetchData()
+  }, []);
+
+  console.log(movie);
+
+
+
+
   function truncate(string, n) {
     return string?.length > n ? string.substr(0, n - 1) + "...." : string;
   }
@@ -9,7 +34,7 @@ function Banner() {
       className="banner"
       style={{
         backgroundSize: "cover",
-        backgroundImage: `url("https://png.pngtree.com/thumb_back/fh260/background/20190221/ourmid/pngtree-texture-geometric-black-metal-gradient-image_17809.jpg")`,
+        backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie?.backdrop_path}")`,
         backgroundPosition: "center center",
       }}
     >
