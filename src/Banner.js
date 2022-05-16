@@ -8,13 +8,13 @@ function Banner() {
 
   useEffect(() => {
     async function fetchData() {
-      const requests = await axios.get(requests.fetchNetflixOriginals);
+      const request = await axios.get(requests.fetchNetflixOriginals);
       setMovie(
-        requests.data.results[
-          Math.floor(Math.random() * requests.data.result.length -1)
+        request.data.results[
+          Math.floor(Math.random() * request.data.results.length -1)
         ]
       );
-      return requests;
+      return request;
       
     }
 
@@ -27,7 +27,7 @@ function Banner() {
 
 
   function truncate(string, n) {
-    return string?.length > n ? string.substr(0, n - 1) + "...." : string;
+    return string?.length > n ? string.substr(0, n - 1) + '...' : string;
   }
   return (
     <header
